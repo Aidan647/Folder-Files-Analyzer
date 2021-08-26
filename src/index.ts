@@ -1,7 +1,11 @@
+#!/usr/bin/env node
 import { readdir } from "fs/promises"
 import { extname, resolve } from "path"
 import { getType } from "mime"
 import { Table } from "console-table-printer"
+import yargs from "yargs"
+
+const options = yargs.usage("Usage: mimedata [folder]").argv
 
 async function* getFiles(dir: string): AsyncGenerator<[string, string]> {
 	const dirents = await readdir(dir, { withFileTypes: true })
@@ -14,6 +18,7 @@ async function* getFiles(dir: string): AsyncGenerator<[string, string]> {
 		}
 	}
 }
+
 class type {
 	mime: string
 	extension: string
@@ -37,7 +42,7 @@ class type {
 ;(async () => {
 	const total: { [mime: string]: type } = {}
 	var count = 0
-	for await (const f of getFiles("C:/Users/Kirill/Desktop/code")) {
+	for await (const f of getFiles((await options)?.["_"]?.[0]?.toString() ?? ".")) {
 		// console.log(getType(f[0]))
 		const ext = extname(f[0]) || f[1]
 		if (total[ext]) total[ext].add()
@@ -50,8 +55,8 @@ class type {
 			return row2.count - row1.count
 		},
 	})
-	const values = Object.values(total).sort((x,y) => {
-		return y.count-x.count
+	const values = Object.values(total).sort((x, y) => {
+		return y.count - x.count
 	})
 	if (values.length > 50) {
 		values.slice(0, 49).forEach((data: type) => {
@@ -61,7 +66,7 @@ class type {
 			x += y.count
 			return x
 		}, 0)
-		console.log(files)
+		// console.log(files)
 		t.addRow(
 			{
 				extension: "other",

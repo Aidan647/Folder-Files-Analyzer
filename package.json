@@ -1,7 +1,7 @@
 {
-	"name": "mimedata",
+	"name": "fofa",
 	"version": "1.0.0",
-	"description": "Get mime data form directory",
+	"description": "Folder Files Analyzer",
 	"main": "out/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -15,10 +15,10 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Aidan647/mimedata.git"
+		"url": "git+https://github.com/Aidan647/Folder-Files-Analyzer.git"
 	},
 	"bin": {
-		"mimedata": "./out/index.js"
+		"fofa": "./out/index.js"
 	},
 	"devDependencies": {
 		"@types/mime": "^2.0.3",
@@ -30,6 +30,7 @@
 	"dependencies": {
 		"console-table-printer": "^2.10.0",
 		"mime": "^2.5.2",
+		"pretty-bytes": "^5.6.0",
 		"yargs": "^17.1.1"
 	}
 }
